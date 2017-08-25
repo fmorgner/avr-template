@@ -50,6 +50,7 @@ LDFLAGS  := $(LDFLAGS_BASE) $(LDFLAGS)
 
 SRCS := $(patsubst %.cpp,$(SRCDIR)/%.cpp,$(SRCS))
 OBJS := $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
+DEPS := $(patsubst %.o,%.d,$(OBJS))
 BINS := $(BINDIR)/$(TARGET).bin
 HEXS := $(HEXDIR)/$(TARGET).hex
 
@@ -62,6 +63,7 @@ all: check-tools $(HEXS)
 
 clean:
 	@$(foreach elem,$(OBJS),if [ -f $(elem) ]; then echo "RM $(elem)"; rm $(elem); fi)
+	@$(foreach elem,$(DEPS),if [ -f $(elem) ]; then echo "RM $(elem)"; rm $(elem); fi)
 	@$(foreach elem,$(BINS),if [ -f $(elem) ]; then echo "RM $(elem)"; rm $(elem); fi)
 	@$(foreach elem,$(HEXS),if [ -f $(elem) ]; then echo "RM $(elem)"; rm $(elem); fi)
 
@@ -91,7 +93,9 @@ hexsize: $(HEXS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	@echo "COMPILE $@"
-	@$(COMPILE) $(CXXFLAGS) -c -o $@ $<
+	@$(COMPILE) $(CXXFLAGS) -MMD -c -o $@ $<
+
+-include $(OBJDIR)/*.d
 
 $(BINDIR)/%.bin: $(OBJS) | $(BINDIR)
 	@echo "LINK $@"
