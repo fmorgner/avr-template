@@ -42,8 +42,8 @@ BINDIR := bin
 HEXDIR := hex
 OBJDIR := obj
 
-CXXFLAGS_BASE := -g -Os -Wextra -Werror -pedantic-errors -mmcu=$(MCU) -DF_CPU=$(CLOCK)
-LDFLAGS_BASE  := -mmcu=$(MCU)
+CXXFLAGS_BASE := -g -Os -Wextra -Werror -pedantic-errors -mmcu=$(MCU) -DF_CPU=$(CLOCK) -ffunction-sections -fdata-sections
+LDFLAGS_BASE  := -mmcu=$(MCU) -flto -Wl,--gc-sections
 
 CXXFLAGS := $(CXXFLAGS_BASE) $(CXXFLAGS) $(SINCDIRS) $(PINCDIRS)
 LDFLAGS  := $(LDFLAGS_BASE) $(LDFLAGS)
