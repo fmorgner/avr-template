@@ -72,6 +72,7 @@ dist-clean: clean
 	@if [ -d $(BINDIR) ]; then echo "RMDIR $(BINDIR)"; rmdir $(BINDIR); fi
 	@if [ -d $(HEXDIR) ]; then echo "RMDIR $(HEXDIR)"; rmdir $(HEXDIR); fi
 	@if [ -f .tool-paths ]; then echo "RM .tool-paths"; rm .tool-paths; fi
+	@if [ -d .git -a -n "$(shell git clean -xdn)" ]; then echo "GIT CLEAN"; git clean -xdf &> /dev/null; fi
 
 #-# AVR Info Goals
 
