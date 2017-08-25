@@ -16,9 +16,13 @@ OBJDUMP := objdump
 CXXFLAGS := -std=gnu++17
 LDFLAGS  :=
 
-# Include and Source directories
-INCDIR := include
+# Project Source Directory
 SRCDIR := src
+
+# Include Directories
+PINCDIRS := \
+ 	include
+SINCDIRS := \
 
 # Sources
 SRCS := \
@@ -31,6 +35,9 @@ COMPILE := $(shell command -v $(TPREFIX)$(COMPILE) 2>/dev/null)
 OBJCOPY := $(shell command -v $(TPREFIX)$(OBJCOPY) 2>/dev/null)
 OBJDUMP := $(shell command -v $(TPREFIX)$(OBJDUMP) 2>/dev/null)
 
+PINCDIRS := $(patsubst %,-I %,$(PINCDIRS))
+SINCDIRS := $(patsubst %,-isystem %,$(SINCDIRS))
+
 BINDIR := bin
 HEXDIR := hex
 OBJDIR := obj
@@ -38,7 +45,7 @@ OBJDIR := obj
 CXXFLAGS_BASE := -g -Os -Wextra -Werror -pedantic-errors -mmcu=$(MCU) -DF_CPU=$(CLOCK)
 LDFLAGS_BASE  := -mmcu=$(MCU)
 
-CXXFLAGS := $(CXXFLAGS_BASE) $(CXXFLAGS)
+CXXFLAGS := $(CXXFLAGS_BASE) $(CXXFLAGS) $(SINCDIRS) $(PINCDIRS)
 LDFLAGS  := $(LDFLAGS_BASE) $(LDFLAGS)
 
 SRCS := $(patsubst %.cpp,$(SRCDIR)/%.cpp,$(SRCS))
