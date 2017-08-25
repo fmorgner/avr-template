@@ -7,10 +7,10 @@ MCU   := atmega328p
 
 # Toolchain
 TPREFIX := avr-
-AVRSIZE := $(TPREFIX)size
-COMPILE := $(TPREFIX)g++
-OBJCOPY := $(TPREFIX)objcopy
-OBJDUMP := $(TPREFIX)objdump
+AVRSIZE := size
+COMPILE := g++
+OBJCOPY := objcopy
+OBJDUMP := objdump
 
 # Compiler and Linker flags
 CXXFLAGS := -std=gnu++17
@@ -26,10 +26,10 @@ SRCS := \
 
 #- DON'T EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE GETTING YOURSELF INTO -#
 
-AVRSIZE := $(shell command -v $(TPREFIX)size 2>/dev/null)
-COMPILE := $(shell command -v $(TPREFIX)g++ 2>/dev/null)
-OBJCOPY := $(shell command -v $(TPREFIX)objcopy 2>/dev/null)
-OBJDUMP := $(shell command -v $(TPREFIX)objdump 2>/dev/null)
+AVRSIZE := $(shell command -v $(TPREFIX)$(AVRSIZE) 2>/dev/null)
+COMPILE := $(shell command -v $(TPREFIX)$(COMPILE) 2>/dev/null)
+OBJCOPY := $(shell command -v $(TPREFIX)$(OBJCOPY) 2>/dev/null)
+OBJDUMP := $(shell command -v $(TPREFIX)$(OBJDUMP) 2>/dev/null)
 
 BINDIR := bin
 HEXDIR := hex
