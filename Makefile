@@ -136,6 +136,6 @@ endif
 
 .tool-paths: | check-compiler check-linker check-objcopy check-disasm check-binsize
 	@echo "g++     : $(COMPILE)" | tee -a .tool-paths
-	@echo "objcopy : $(OBJCOPY)" | too -a .tool-paths
-	@echo "objdump : $(OBJDUMP)" | too -a .tool-paths
-	@echo "avrsize : $(AVRSIZE)" | too -a .tool-paths
+	@echo "objcopy : $(OBJCOPY)" | tee -a .tool-paths
+	@echo "objdump : $(OBJDUMP)" | tee -a .tool-paths
+	@echo "avrsize : $(AVRSIZE)" | tee -a .tool-paths
